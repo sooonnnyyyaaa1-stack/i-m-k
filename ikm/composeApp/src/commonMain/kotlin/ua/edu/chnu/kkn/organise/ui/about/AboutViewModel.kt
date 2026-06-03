@@ -11,12 +11,29 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.format
+import kotlinx.datetime.format.DateTimeFormat
+import kotlinx.datetime.format.char
 import ua.edu.chnu.kkn.organise.data.about.AboutRepository
 
 @Stable
 internal class AboutViewModel(
     private val aboutRepository: AboutRepository,
 ) : ViewModel() {
+
+    private val format: DateTimeFormat<LocalDateTime> = LocalDateTime.Format {
+        day()
+        char('.')
+        monthNumber()
+        char('.')
+        year()
+        char(' ')
+        hour()
+        char(':')
+        minute()
+    }
+
 
     val countState: StateFlow<Int> = aboutRepository.visitedCountObservable()
         .stateIn(
@@ -38,11 +55,12 @@ internal class AboutViewModel(
         viewModelScope.launch {
             val platformInfo = aboutRepository.getAbout()
             val visitedCount = aboutRepository.visitedCount()
-
+            val lastVisitedDate = aboutRepository.visitedDate()?.format(format) ?: "-----"
             _state.update { current ->
                 current.copy(
                     platformInfo = platformInfo,
-                    visitedCount = visitedCount
+                    visitedCount = visitedCount,
+                    visitedDate = lastVisitedDate
                 )
             }
         }

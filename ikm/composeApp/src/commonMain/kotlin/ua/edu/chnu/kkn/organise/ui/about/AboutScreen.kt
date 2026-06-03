@@ -1,8 +1,10 @@
 package ua.edu.chnu.kkn.organise.ui.about
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -71,7 +73,11 @@ private fun AboutContent(viewModel: AboutViewModel) {
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
-                    text = "Screen visited ${state.visitedCount} times."
+                    text = "Visited ${state.visitedCount} times."
+                )
+                Spacer(Modifier.height(4.dp))
+                Text(
+                    text = "Last time visited at ${state.visitedDate}."
                 )
             }
         }
