@@ -67,6 +67,7 @@ kotlin {
         }
         iosMain.dependencies {
             implementation(libs.kermit)
+            implementation(libs.koin.core)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
