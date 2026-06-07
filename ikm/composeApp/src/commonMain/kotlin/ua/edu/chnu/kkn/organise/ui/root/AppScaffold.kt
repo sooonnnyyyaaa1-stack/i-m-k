@@ -8,17 +8,20 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
+import ua.edu.chnu.kkn.organise.ui.theme.AppTheme
 
 @Composable
 fun AppScaffold() {
-    val navController = rememberNavController()
+    AppTheme {
+        val navController = rememberNavController()
 
-    Scaffold(contentWindowInsets = WindowInsets.ime) {
-        AppNavHost(
-            navController = navController,
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(it)
-        )
+        Scaffold(contentWindowInsets = WindowInsets.ime) {
+            AppNavHost(
+                navController = navController,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(it)
+            )
+        }
     }
 }
